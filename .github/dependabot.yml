@@ -22,7 +22,7 @@ updates:
   - berviantoleo
 
 - package-ecosystem: npm
-  directory: "/"
+  directory: "/SignalRWebpack"
   schedule:
     interval: weekly
     day: saturday
