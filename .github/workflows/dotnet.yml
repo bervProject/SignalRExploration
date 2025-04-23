@@ -18,7 +18,6 @@ jobs:
           dotnet restore
           cd SignalRWebpack
           npm install
+          npm run release
       - name: Build
         run: dotnet build --configuration Release --no-restore
-      - name: Publish
-        run: npm run publish
