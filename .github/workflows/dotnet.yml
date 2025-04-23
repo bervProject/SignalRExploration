@@ -20,3 +20,5 @@ jobs:
           npm install
       - name: Build
         run: dotnet build --configuration Release --no-restore
+      - name: Publish
+        run: npm run publish
