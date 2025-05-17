@@ -24,6 +24,6 @@
   },
   "dependencies": {
     "@microsoft/signalr": "^8.0.7",
-    "@types/node": "^22.15.17"
+    "@types/node": "^22.15.18"
   }
 }
