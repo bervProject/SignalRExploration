@@ -1,9 +1,9 @@
 import * as signalR from "@microsoft/signalr";
 import "./css/main.css";
 
-const divMessages: HTMLDivElement = document.querySelector("#divMessages");
-const tbMessage: HTMLInputElement = document.querySelector("#tbMessage");
-const btnSend: HTMLButtonElement = document.querySelector("#btnSend");
+const divMessages: HTMLDivElement | null = document.querySelector("#divMessages");
+const tbMessage: HTMLInputElement | null = document.querySelector("#tbMessage");
+const btnSend: HTMLButtonElement | null = document.querySelector("#btnSend");
 const username = new Date().getTime();
 
 const connection = new signalR.HubConnectionBuilder()
@@ -11,6 +11,8 @@ const connection = new signalR.HubConnectionBuilder()
     .build();
 
 connection.on("messageReceived", (username: string, message: string) => {
+  if (!divMessages) return;
+
   const m = document.createElement("div");
 
   m.innerHTML = `<div class="message-author">${username}</div><div>${message}</div>`;
@@ -21,15 +23,17 @@ connection.on("messageReceived", (username: string, message: string) => {
 
 connection.start().catch((err) => document.write(err));
 
-tbMessage.addEventListener("keyup", (e: KeyboardEvent) => {
+tbMessage?.addEventListener("keyup", (e: KeyboardEvent) => {
   if (e.key === "Enter") {
     send();
   }
 });
 
-btnSend.addEventListener("click", send);
+btnSend?.addEventListener("click", send);
 
 function send() {
+  if (!tbMessage || !tbMessage.value) return;
+
   connection.send("newMessage", username, tbMessage.value)
     .then(() => (tbMessage.value = ""));
 }
